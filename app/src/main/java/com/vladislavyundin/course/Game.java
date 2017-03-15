@@ -17,10 +17,10 @@ public class Game {
     private Player activePlayer;
 
     public Game(){
-        field = new Square[6][6];
+        field = new Square[8][8];
         // заполнение поля
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 field[i][j] = new Square();
             }
         }
@@ -45,7 +45,7 @@ public class Game {
 
     public Player checkWinner() {
         Square[][] field = getField();
-        Player winner = field[0][5].getPlayer();
+        Player winner = field[0][7].getPlayer();
 
         return winner;
     }
@@ -94,12 +94,12 @@ public class Game {
     }
 
     private void resetField() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 field[i][j].fill(null);
             }
         }
-        current.setX(5);
+        current.setX(7);
         current.setY(0);
     }
 }

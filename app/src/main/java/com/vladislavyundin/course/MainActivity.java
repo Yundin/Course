@@ -2,17 +2,15 @@ package com.vladislavyundin.course;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.print.PrintAttributes;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.Toast;
-import android.content.pm.ActivityInfo;
+import android.view.ViewGroup;
+import android.widget.*;
 
 public class MainActivity extends Activity {
 
     private Game game;
-    private Button[][] buttons = new Button[6][6];
+    private ImageButton[][] buttons = new ImageButton[8][8];
     private TableLayout table;
 
     public MainActivity(){
@@ -23,28 +21,33 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         table = (TableLayout) findViewById(R.id.main_l);
         buildField();
     }
 
     private void buildField(){
-        for(int i = 0; i < 6;i++) {
+        for(int i = 0; i < 8;i++) {
             TableRow row = new TableRow(this);
-            for (int j = 0; j < 6; j++){
-                Button button = new Button(this);
+            for (int j = 0; j < 8; j++){
+                ImageButton button = new ImageButton(this);
                 buttons[i][j] = button;
                 button.setOnClickListener(new Listener(i,j));
                 row.addView(button, new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.WRAP_CONTENT)); // добавление кнопки в строку таблицы
-                button.setWidth(0);
-                button.setHeight(0);
+                if((i+j)%2 == 0){
+                    button.setImageResource(R.drawable.red);
+                    button.setBackgroundResource(R.drawable.back);
+                }
+                else{
+                    button.setImageResource(R.drawable.black);
+                    button.setBackgroundResource(R.drawable.back);
+                }
             }
             table.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
         }
-        buttons[5][0].setText("x");
+        buttons[7][0].setImageResource(R.drawable.blackx);
     }
 
     public class Listener implements View.OnClickListener {
@@ -57,11 +60,21 @@ public class MainActivity extends Activity {
         }
 
         public void onClick(View view) {
-            Button button = (Button) view;
+            ImageButton button = (ImageButton) view;
             if (game.isPossible(x, y)){
-                buttons[game.getX()][game.getY()].setText("");
+                if((game.getX()+game.getY())%2 == 0) {
+                    buttons[game.getX()][game.getY()].setImageResource(R.drawable.red);
+                }
+                else{
+                    buttons[game.getX()][game.getY()].setImageResource(R.drawable.black);
+                }
                 makeTurn(x, y);
-                button.setText("x");
+                if((x+y)%2 == 0) {
+                    button.setImageResource(R.drawable.redx);
+                }
+                else{
+                    button.setImageResource(R.drawable.blackx);
+                }
             }
             Player winner = game.checkWinner();
             if (winner != null) {
@@ -82,11 +95,16 @@ public class MainActivity extends Activity {
     }
 
     private  void refresh(){
-        for(int i = 0; i<6;i++) {
-            for (int j = 0; j < 6; j++) {
-                buttons[i][j].setText("");
+        for(int i = 0; i<8;i++) {
+            for (int j = 0; j < 8; j++) {
+                if((i+j)%2 == 0) {
+                    buttons[i][j].setImageResource(R.drawable.red);
+                }
+                else{
+                    buttons[i][j].setImageResource(R.drawable.black);
+                }
             }
         }
-        buttons[5][0].setText("x");
+        buttons[7][0].setImageResource(R.drawable.blackx);
     }
 }
