@@ -27,14 +27,21 @@ public class MainActivity extends Activity {
     }
 
     private void buildField(){
+        TableRow.LayoutParams tr = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+        tr.setMargins(0,0,0,0);
+        TableLayout.LayoutParams tl = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                TableLayout.LayoutParams.WRAP_CONTENT);
+        tl.setMargins(0,0,0,0);
         for(int i = 0; i < 8;i++) {
             TableRow row = new TableRow(this);
+            row.setLayoutParams(tr);
             for (int j = 0; j < 8; j++){
                 ImageButton button = new ImageButton(this);
                 buttons[i][j] = button;
                 button.setOnClickListener(new Listener(i,j));
-                row.addView(button, new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                        TableRow.LayoutParams.WRAP_CONTENT)); // добавление кнопки в строку таблицы
+                row.addView(button, tr); // добавление кнопки в строку таблицы
+
                 if((i+j)%2 == 0){
                     button.setImageResource(R.drawable.red);
                     button.setBackgroundResource(R.drawable.back);
@@ -44,8 +51,7 @@ public class MainActivity extends Activity {
                     button.setBackgroundResource(R.drawable.back);
                 }
             }
-            table.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT));
+            table.addView(row, tl);
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
     }
