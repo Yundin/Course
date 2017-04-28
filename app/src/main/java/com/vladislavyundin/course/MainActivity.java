@@ -2,9 +2,8 @@ package com.vladislavyundin.course;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.print.PrintAttributes;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 
 public class MainActivity extends Activity {
@@ -12,6 +11,7 @@ public class MainActivity extends Activity {
     private Game game;
     private ImageButton[][] buttons = new ImageButton[8][8];
     private TableLayout table;
+    public TextView text;
 
     public MainActivity(){
         game = new Game();
@@ -23,16 +23,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         table = (TableLayout) findViewById(R.id.main_l);
+        text = (TextView) findViewById(R.id.text);
         buildField();
     }
 
     private void buildField(){
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
         TableRow.LayoutParams tr = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
-        tr.setMargins(0,0,0,0);
+        tr.setMargins(0,0,0,-30);
         TableLayout.LayoutParams tl = new TableLayout.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableLayout.LayoutParams.WRAP_CONTENT);
-        tl.setMargins(0,0,0,0);
+        tl.setMargins(0,0,0,-30);
         for(int i = 0; i < 8;i++) {
             TableRow row = new TableRow(this);
             row.setLayoutParams(tr);
@@ -54,6 +58,7 @@ public class MainActivity extends Activity {
             table.addView(row, tl);
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
+        text.setText("Player1");
     }
 
     public class Listener implements View.OnClickListener {
@@ -81,6 +86,7 @@ public class MainActivity extends Activity {
                 else{
                     button.setImageResource(R.drawable.blackx);
                 }
+                changeplayers();
             }
             Player winner = game.checkWinner();
             if (winner != null) {
@@ -112,5 +118,13 @@ public class MainActivity extends Activity {
             }
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
+        text.setText("Player 1");
+    }
+
+    private void changeplayers (){
+        if(game.getNumberActivePlayer() == 0)
+            text.setText("Player 1");
+        else
+            text.setText("Player 2");
     }
 }

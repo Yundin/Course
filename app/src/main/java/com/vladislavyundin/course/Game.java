@@ -16,6 +16,8 @@ public class Game {
 
     private Player activePlayer;
 
+    private MainActivity main;
+
     public Game(){
         field = new Square[8][8];
         // заполнение поля
@@ -84,8 +86,20 @@ public class Game {
         return activePlayer;
     }
 
+    public int getNumberActivePlayer() {
+        if(activePlayer == players[0])
+            return 0;
+        else
+            return 1;
+    }
+
     private void switchPlayers() {
-        activePlayer = (activePlayer == players[0]) ? players[1] : players[0];
+        if(activePlayer == players[0]){
+            activePlayer = players[1];
+        }
+        else{
+            activePlayer = players[0];
+        }
     }
 
     public void reset(){
