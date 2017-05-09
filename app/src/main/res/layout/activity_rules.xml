@@ -4,8 +4,19 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:text="Заглушечка"
+            android:text="@string/rules"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" android:id="@+id/textView2"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:textSize="20dp"
+            android:id="@+id/textView2"/>
+    <ImageView android:layout_width="wrap_content"
+               android:src="@drawable/rulepng"
+               android:layout_centerHorizontal="true"
+               android:scaleX="1.5"
+               android:scaleY="1.5"
+               android:layout_below="@id/textView2"
+               android:layout_marginTop="20dp"
+               android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -12,16 +12,27 @@ public class MainActivity extends Activity {
     private ImageButton[][] buttons = new ImageButton[8][8];
     private TableLayout table;
     public TextView text;
+    int mode;
+    String name1, name2;
 
     public MainActivity(){
         game = new Game();
-        game.start();
+        game.start(name1, name2);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mode = (int)getIntent().getSerializableExtra("mode");
+        if (mode != 0) {
+            name1 = (String) getIntent().getSerializableExtra("name1");
+            name2 = (String) getIntent().getSerializableExtra("name2");
+        }
+        else{
+            name1 = "";
+            name2 = "";
+        }
         table = (TableLayout) findViewById(R.id.main_l);
         text = (TextView) findViewById(R.id.text);
         buildField();
@@ -58,7 +69,7 @@ public class MainActivity extends Activity {
             table.addView(row, tl);
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
-        text.setText("Player1");
+        text.setText(String.valueOf(mode));
     }
 
     public class Listener implements View.OnClickListener {
@@ -102,7 +113,7 @@ public class MainActivity extends Activity {
     private void gameOver(Player player){
         CharSequence text = "Player \"" + player.getName() + "\" won!";
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-        game.reset();
+        game.reset(name1, name2);
         refresh();
     }
 
@@ -118,13 +129,13 @@ public class MainActivity extends Activity {
             }
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
-        text.setText("Player 1");
+        text.setText(name1);
     }
 
     private void changeplayers (){
         if(game.getNumberActivePlayer() == 0)
-            text.setText("Player 1");
+            text.setText(name1);
         else
-            text.setText("Player 2");
+            text.setText(name2);
     }
 }

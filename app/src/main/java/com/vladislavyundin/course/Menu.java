@@ -30,7 +30,7 @@ public class Menu extends Activity{
                 ad.setPositiveButton("С игроком", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
                         //Ввод имен
-                        Intent intent = new Intent(Menu.this, MainActivity.class);
+                        Intent intent = new Intent(Menu.this, Options.class);
                         startActivity(intent);
                     }
                 });
@@ -38,8 +38,30 @@ public class Menu extends Activity{
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         //Запуск с компом
-                        Intent intent = new Intent(Menu.this, Rules.class);
-                        startActivity(intent);
+
+                        final Intent intent = new Intent(Menu.this, MainActivity.class);
+
+                        AlertDialog.Builder ad = new AlertDialog.Builder(Menu.this);
+                        ad.setMessage("Выберите Сложность");
+                        ad.setPositiveButton("Сложная", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int i) {
+
+                                intent.putExtra("mode", 2);
+                                startActivity(intent);
+                            }
+                        });
+                        ad.setNegativeButton("Легкая", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                //Запуск с компом
+                                intent.putExtra("mode", 1);
+                                startActivity(intent);
+                            }
+                        });
+
+                        ad.setCancelable(true);
+                        AlertDialog alert = ad.create();
+                        alert.show();
                     }
                 });
                 ad.setCancelable(true);

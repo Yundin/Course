@@ -31,13 +31,13 @@ public class Game {
         current = new Current();
     }
 
-    public void start() {
-        reset();
+    public void start(String n1, String n2) {
+        reset(n1, n2);
     }
 
-    private void resetPlayers() {
-        players[0] = new Player("1");
-        players[1] = new Player("2");
+    private void resetPlayers(String n1, String n2) {
+        players[0] = new Player(n1);
+        players[1] = new Player(n2);
         setCurrentActivePlayer(players[0]);
     }
 
@@ -102,9 +102,9 @@ public class Game {
         }
     }
 
-    public void reset(){
+    public void reset(String n1, String n2){
         resetField();
-        resetPlayers();
+        resetPlayers(n1, n2);
     }
 
     private void resetField() {
