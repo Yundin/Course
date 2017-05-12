@@ -67,11 +67,13 @@ public class Game {
     public boolean isPossible(int x, int y){
         int xc = current.getX();
         int yc = current.getY();
-        if (x == xc-1&&y == yc-1) return true;
-        if (x == xc-1&&y == yc) return true;
-        if (x == xc-1&&y == yc+1) return true;
-        if (x == xc&&y == yc+1) return true;
-        if (x == xc+1&&y == yc+1) return true;
+        if (x > -1 && y > -1 && x < 8 && y < 8) {
+            if (x == xc - 1 && y == yc - 1) return true;
+            if (x == xc - 1 && y == yc) return true;
+            if (x == xc - 1 && y == yc + 1) return true;
+            if (x == xc && y == yc + 1) return true;
+            if (x == xc + 1 && y == yc + 1) return true;
+        }
         return false;
     }
 

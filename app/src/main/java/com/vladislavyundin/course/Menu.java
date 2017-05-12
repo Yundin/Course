@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by vladislavyundin on 10.04.17.
@@ -20,7 +22,9 @@ public class Menu extends Activity{
 
         Button play = (Button) findViewById(R.id.play);
         Button rules = (Button) findViewById(R.id.rules);
-        //pl.droidsonroids.gif.GifTextView gif = new (pl.droidsonroids.gif.GifTextView) findViewById(R.id.bgif);
+//        GifImageView gifImageView = (GifImageView) findViewById(R.id.bgif);
+//        GifDrawable gifDrawable = (GifDrawable) gifImageView.getDrawable();
+//        gifDrawable.setLoopCount(0);
 
         play.setOnClickListener(new View.OnClickListener(){
             @Override

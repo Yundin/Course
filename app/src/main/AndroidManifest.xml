@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Rules"></activity>
+        <activity android:name=".Options"></activity>
     </application>
 
 </manifest>

@@ -16,14 +16,15 @@ public class Options extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        final EditText name1 = (EditText) findViewById(R.id.editText);
+        final EditText name2 = (EditText) findViewById(R.id.editText2);
 
         Button ok = (Button) findViewById(R.id.button);
 
         ok.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                EditText name1 = (EditText) findViewById(R.id.editText);
-                EditText name2 = (EditText) findViewById(R.id.editText2);
+
                 String n1 = name1.getText().toString();
                 String n2 = name2.getText().toString();
                 Intent intent = new Intent(Options.this, MainActivity.class);
