@@ -34,8 +34,8 @@ public class MainActivity extends Activity {
             name1 = "Игрок";
             name2 = "Компьютер";
         }
-        if (name1 == "") name1 = "Игрок 1";
-        if (name2 == "") name2 = "Игрок 2";
+        if (name1.equals("")) name1 = "Игрок 1";
+        if (name2.equals("")) name2 = "Игрок 2";
         table = (TableLayout) findViewById(R.id.main_l);
         text = (TextView) findViewById(R.id.text);
         game = new Game();

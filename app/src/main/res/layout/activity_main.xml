@@ -17,6 +17,7 @@
                  android:layout_height="fill_parent"
                  android:id="@+id/main_l"
                  android:gravity="center"
+                 android:background="@drawable/phon5"
                  android:dividerPadding="0dp"
                  android:layout_below="@+id/text">
     </TableLayout>
