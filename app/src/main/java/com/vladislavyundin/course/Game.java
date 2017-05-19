@@ -16,8 +16,6 @@ public class Game {
 
     private Player activePlayer;
 
-    private MainActivity main;
-
     public Game(){
         field = new Square[8][8];
         // заполнение поля
@@ -29,10 +27,6 @@ public class Game {
         players = new Player[2];
         activePlayer = null;
         current = new Current();
-    }
-
-    public void start(String n1, String n2) {
-        reset(n1, n2);
     }
 
     private void resetPlayers(String n1, String n2) {

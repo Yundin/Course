@@ -2,11 +2,8 @@ package com.vladislavyundin.course;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.*;
-
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,18 +31,16 @@ public class MainActivity extends Activity {
             name1 = "Игрок";
             name2 = "Компьютер";
         }
-        if (name1.equals("")) name1 = "Игрок 1";
-        if (name2.equals("")) name2 = "Игрок 2";
+        if (name1.isEmpty() || name1.equals(" ")) name1 = "Игрок 1";
+        if (name2.isEmpty() || name2.equals(" ")) name2 = "Игрок 2";
         table = (TableLayout) findViewById(R.id.main_l);
         text = (TextView) findViewById(R.id.text);
         game = new Game();
-        game.start(name1, name2);
+        game.reset(name1, name2);
         buildField();
     }
 
     private void buildField() {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         TableRow.LayoutParams tr = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         tr.setMargins(0, 0, 0, -30);
@@ -72,8 +67,7 @@ public class MainActivity extends Activity {
             table.addView(row, tl);
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
-        if (mode == 0)
-            text.setText(name1 + " ходит");
+        text.setText(name1 + " ходит");
     }
 
     public class Listener implements View.OnClickListener {
@@ -104,16 +98,23 @@ public class MainActivity extends Activity {
         } else {
             buttons[x][y].setImageResource(R.drawable.blackx);
         }
-        changeplayers(mode);
         Player winner = game.checkWinner();
         if (winner != null) {
             gameOver(winner);
+        }
+        else {
+            changeplayers(mode);
         }
     }
 
     private void gameOver(Player player) {
         CharSequence text = player.getName() + " выиграл!";
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        if (mode == 0) {
+            String c = name1;
+            name1 = name2;
+            name2 = c;
+        }
         game.reset(name1, name2);
         refresh();
     }
@@ -129,8 +130,7 @@ public class MainActivity extends Activity {
             }
         }
         buttons[7][0].setImageResource(R.drawable.blackx);
-        if (mode == 0)
-            text.setText(name1 + " ходит");
+        text.setText(name1 + " ходит");
     }
 
     private void RandomTurn() {
@@ -183,12 +183,11 @@ public class MainActivity extends Activity {
     }
 
     private void changeplayers(int mode) {
-        if (mode == 0) {
-            if (game.getNumberActivePlayer() == 0)
+        if (game.getNumberActivePlayer() == 0)
                 text.setText(name1 + " ходит");
-            else
-                text.setText(name2 + " ходит");
-        } else if (game.getNumberActivePlayer() == 1) {
+        else
+            text.setText(name2 + " ходит");
+        if (game.getNumberActivePlayer() == 1 && mode != 0) {
             Timer mTimer = new Timer();
             MyTimerTask mMyTimerTask = new MyTimerTask();
 
