@@ -1,4 +1,4 @@
-package com.vladislavyundin.course;
+package com.vladislavyundin.course.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.vladislavyundin.course.R;
 
 /**
  * Created by vladislavyundin on 02.05.17.
